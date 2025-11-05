@@ -39,7 +39,8 @@ if st.button("🚀 Start Warming"):
 
     def warm_url(url):
         try:
-            r = requests.head(url, timeout=10)
+            r = requests.get(url, stream=True, timeout=10)
+            r.close()  # Download nicht nötig, nur Cache füllen
             return url, r.status_code, r.headers.get("x-cache", "N/A")
         except Exception as e:
             return url, None, str(e)
